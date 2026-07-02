@@ -1,76 +1,152 @@
-# Mechatronics-Learning-Portfolio
+# Mechatronics Learning Portfolio
 
-这是一个用于记录个人工程学习过程、项目实践、技能成长与问题复盘的 GitHub 作品集仓库。仓库内容以机电一体化、机器人、嵌入式系统和智能控制方向为主，持续沉淀课程学习、项目开发、调试经验和阶段性成果。
+![Repo Size](https://img.shields.io/github/repo-size/your-username/Mechatronics-Learning-Portfolio)
+![Last Commit](https://img.shields.io/github/last-commit/your-username/Mechatronics-Learning-Portfolio)
+![Markdown](https://img.shields.io/badge/language-Markdown-blue)
+![Topics](https://img.shields.io/badge/topics-robotics%20%7C%20embedded%20%7C%20mechatronics%20%7C%20control-green)
 
-本仓库不是一次性完成的展示页，而是一个长期维护的学习档案。每个项目会尽量记录真实的设计思路、实验过程、问题排查和后续改进方向。
+## About This Repository
 
-> 保密与版权提醒：涉及学校、实验室、比赛、企业合作或未公开项目资料时，应注意保密要求、知识产权归属和引用规范。不要上传未经授权的图纸、代码、论文、数据、照片或内部资料。
+This repository documents my engineering learning portfolio, including project practice, debugging experience, technical notes, and skill development. 内容以机电一体化、机器人、嵌入式系统、运动控制和智能感知方向为主，持续记录从课程知识到工程实践的学习过程。
 
-## 我的学习方向
+它不是一次性完成的展示页，而是一个长期维护的学习档案。项目记录会尽量区分“已完成”“学习中”“正在整理”和“计划完善”的内容，避免夸大实际进展。
 
-- 机电一体化与机器人系统设计
-- 嵌入式系统与 STM32 开发
-- 手术机器人机构、运动学与控制系统
-- 激光雷达自动寻迹 / 导航物流小车
-- 计算机视觉与 OpenCV
-- 人工智能基础与工程应用
-- 自动控制、PID 与电机控制
-- 微机原理与接口技术
-- C / C++ / Python / C# 工程编程
+## About Me
 
-## 项目列表
+我是一名关注机电 / 机器人方向的学生，目前主要围绕以下方向进行学习和实践：
 
-| 项目 | 简介 | 技术关键词 | 状态 |
+- Surgical Robotics 手术机器人
+- Embedded Systems 嵌入式系统
+- Motion Control 运动控制
+- Computer Vision 计算机视觉
+- Robotics 机器人学
+- Control Engineering 自动控制
+
+我希望通过这个仓库，把课程学习、项目设计、调试记录和阶段性复盘沉淀下来，逐步形成一个可持续更新的个人工程学习作品集。
+
+## Featured Projects
+
+| Project | Description | Keywords | Status |
 | --- | --- | --- | --- |
-| [Surgical Robot Project 手术机器人项目](projects/surgical-robot/README.md) | 面向腹腔镜微创手术场景的手术机器人机构与控制系统学习项目 | Surgical Robotics, EndoWrist, STM32, Motion Control, Kinematics | 进行中 |
-| [LiDAR Logistics Car 激光雷达物流小车](projects/lidar-logistics-car/README.md) | 基于激光雷达和嵌入式控制的自动寻迹 / 导航物流小车 | LiDAR, Embedded System, Path Following, Motor Control | 进行中 |
-| [Mini Engineering Projects 小型工程项目](projects/mini-projects/README.md) | 用于记录课程设计、实验、小型机构和控制系统项目 | Mechanical Design, Sensors, Control, C/Python | 持续更新 |
+| [Surgical Robot Project 手术机器人项目](./projects/surgical-robot/) | 面向腹腔镜微创手术场景的手术机器人机构、运动学和嵌入式控制学习项目 | Surgical Robotics, EndoWrist, STM32, Motion Control, Kinematics | 学习中 / 持续完善 |
+| [LiDAR Logistics Car 激光雷达物流小车](./projects/lidar-logistics-car/) | 基于激光雷达、传感器和嵌入式控制的自动寻迹 / 导航小车项目记录 | LiDAR, Embedded System, Path Following, Motor Control | 实践中 / 正在整理 |
+| [Mini Engineering Projects 小型工程项目](./projects/mini-projects/) | 记录课程设计、实验、小型机构、传感器和控制系统练习 | Mechanical Design, Sensors, Control, C/Python | 持续更新 |
 
-## 技能栈
+## Project Highlights
 
-详细技能清单见：[skills.md](skills.md)
+### Surgical Robot Project 手术机器人项目
 
-- Programming Languages: C, C++, Python, C#
-- Embedded Systems: STM32, GPIO, UART, SPI, I2C, PWM, Timer, Encoder
-- Robotics: Forward Kinematics, Inverse Kinematics, Jacobian, Motion Control
-- Control Engineering: PID, Transfer Function, Stability Analysis, Motor Control
-- Computer Vision: OpenCV, Image Processing, Camera Calibration, Object Detection
-- Mechanical Design: Mechanism Design, Transmission Design, Load Analysis, CAD Modeling
+- 关注腹腔镜微创手术器械的多自由度末端机构设计。
+- 正在整理类 EndoWrist 机构的自由度分析、传动思路和结构约束。
+- 记录 STM32 控制系统、驱动模块、编码器反馈和运动控制调试过程。
+- 正在学习 Forward Kinematics、Inverse Kinematics 和 Jacobian 等机器人学基础。
+- 后续计划完善运动学建模、控制策略、实验数据和问题复盘。
 
-## 学习路线入口
+### LiDAR Logistics Car 激光雷达物流小车
 
-长期学习路线见：[roadmap.md](roadmap.md)
+- 围绕 LiDAR、编码器、IMU 和电机驱动模块整理移动机器人系统结构。
+- 正在记录传感器数据读取、路径偏差计算和 Path Following 控制思路。
+- 关注 PWM 调速、Encoder 反馈、PID 控制和左右轮速度同步问题。
+- 持续补充接线记录、通信异常、电机抖动、路径偏差等调试内容。
+- 后续计划加入系统结构图、实物图片、代码片段和演示链接。
 
-路线从编程基础和工程工具开始，逐步进入嵌入式、传感器、电机控制、机器人学、计算机视觉和综合项目实践。
+### Mini Engineering Projects 小型工程项目
 
-## 时间线入口
+- 用于沉淀课程设计、实验项目和短周期工程练习。
+- 计划覆盖 C / Python 编程、STM32 外设、传感器读取和基础控制实验。
+- 通过统一模板记录项目背景、系统结构、核心算法和调试过程。
+- 后续会把小项目与课程知识、专题笔记和综合项目建立链接。
 
-个人成长时间线见：[timeline.md](timeline.md)
+## Technical Skills
 
-每月记录学习内容、项目进展、技能提升、遇到的问题、解决方法和阶段性成果。
+更完整的技能记录见：[技能清单](./skills.md)。
 
-## 仓库结构说明
+### Programming
+
+- C
+- C++
+- Python
+- C#
+
+### Embedded Systems
+
+- STM32
+- GPIO / UART / SPI / I2C
+- PWM / Timer / Encoder
+- Sensor Interface
+- Motor Driver
+
+### Robotics & Control
+
+- Forward Kinematics
+- Inverse Kinematics
+- Jacobian
+- PID Control
+- Motion Control
+- Trajectory Planning
+
+### Computer Vision & AI
+
+- OpenCV
+- Image Processing
+- Camera Calibration
+- Object Detection
+- Basic Machine Learning
+
+### Mechanical Design
+
+- Mechanism Design
+- Transmission Design
+- CAD Modeling
+- Load Analysis
+
+## Repository Structure
 
 ```text
-Mechatronics-Learning-Portfolio/
-├── README.md
-├── roadmap.md
-├── skills.md
-├── timeline.md
-├── projects/          # 项目实践记录
-├── courses/           # 课程学习笔记
-├── notes/             # 专题技术笔记
-├── weekly-logs/       # 周记录与复盘
-├── assets/            # 图片、图表和公共素材
-└── templates/         # 项目、课程、调试和周报模板
+projects/      Project practice and engineering records
+courses/       Course notes and learning summaries
+notes/         Topic-based technical notes
+weekly-logs/   Weekly learning logs and review records
+templates/     Reusable project, course, debugging, and weekly templates
+assets/        Images, diagrams, and public visual materials
 ```
 
-## 更新原则
+- `projects/`: 重点展示项目实践，包括手术机器人、激光雷达物流小车和小型工程项目。
+- `courses/`: 记录 C 语言、Python、机器人学、自动控制、计算机视觉等课程学习。
+- `notes/`: 按专题整理 STM32、电机控制、传感器、OpenCV、ROS 和控制理论。
+- `weekly-logs/`: 用于持续记录每周学习进展、问题和下一步计划。
+- `templates/`: 提供项目记录、课程笔记、调试记录和周记录模板。
+- `assets/`: 存放后续补充的图片、结构图、流程图和展示材料。
 
-1. 真实记录：不夸大项目完成度，区分已完成、进行中和计划内容。
-2. 问题导向：重点记录调试过程、失败原因和改进方法。
-3. 结构清晰：每个项目都包含背景、目标、系统结构、实现过程和复盘。
-4. 持续维护：每周记录学习进展，每月整理阶段成果。
-5. 可展示性：保持 Markdown 格式整洁，图片和代码路径清晰，便于 GitHub 浏览。
-6. 合规上传：不提交大文件、涉密资料、未经授权的图片和第三方代码。
+## Learning Roadmap
+
+学习路线从编程基础和工程工具开始，逐步进入嵌入式系统、传感器、电机控制、机器人学、计算机视觉、人工智能和综合项目实践。
+
+查看完整路线：[学习路线](./roadmap.md)
+
+## Recent Updates
+
+- 2026-07: Initialized the learning portfolio structure
+- 2026-07: Added surgical robot project documentation
+- 2026-07: Added LiDAR logistics car project documentation
+
+更多阶段记录可查看：[时间线](./timeline.md) 和 [周记录](./weekly-logs/)。
+
+## Documentation Principles
+
+- 真实记录学习过程，不把计划内容写成已经完成的结果。
+- 项目复盘优先于简单结果展示，重点说明思路、问题和改进。
+- 重视问题排查和调试记录，保留现象、假设、测试和结论。
+- 将课程知识与项目实践联系起来，避免笔记和项目相互脱节。
+- 注意保密、版权和项目资料边界，不上传学校、实验室、比赛或未公开项目的敏感资料。
+- 不提交大文件、未经授权的图片、第三方代码或内部资料。
+
+## GitHub Topics
+
+建议添加的 GitHub Topics 见：[github-topics.md](./github-topics.md)。
+
+## Contact / Links
+
+- GitHub: https://github.com/your-username
+- Email: your-email@example.com
 
