@@ -1,0 +1,47 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+# C / C++ / embedded build output
+build/
+Debug/
+Release/
+*.o
+*.obj
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Generated documents and large media
+*.zip
+*.rar
+*.7z
+*.mp4
+*.mov
+*.avi
+
+# Local secrets
+.env
+*.key
+*.pem
+
