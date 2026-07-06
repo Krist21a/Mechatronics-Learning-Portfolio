@@ -29,7 +29,7 @@ This repository documents my engineering learning portfolio, including project p
 | Project | Description | Keywords | Status |
 | --- | --- | --- | --- |
 | [Surgical Robot Project 手术机器人项目](./projects/surgical-robot/) | 面向腹腔镜微创手术场景的手术机器人机构、运动学和嵌入式控制学习项目 | Surgical Robotics, EndoWrist, STM32, Motion Control, Kinematics | 学习中 / 持续完善 |
-| [LiDAR Logistics Car 激光雷达物流小车](./projects/lidar-logistics-car/) | 基于激光雷达、传感器和嵌入式控制的自动寻迹 / 导航小车项目记录 | LiDAR, Embedded System, Path Following, Motor Control | 实践中 / 正在整理 |
+| [LiDAR Logistics Car 智能仓储搬运机器人](./projects/lidar-logistics-car/) | 集成四麦克纳姆轮底盘、机械臂抓取、LiDAR 建图导航、ROS2 和视觉 / 点云识别的仓储搬运机器人项目 | ROS2, LiDAR, SLAM, STM32, Mecanum Wheel, Point Cloud | 已完成阶段性验证 / 持续整理 |
 | [Mini Engineering Projects 小型工程项目](./projects/mini-projects/) | 记录课程设计、实验、小型机构、传感器和控制系统练习 | Mechanical Design, Sensors, Control, C/Python | 持续更新 |
 
 ## Project Highlights
@@ -42,13 +42,13 @@ This repository documents my engineering learning portfolio, including project p
 - 正在学习 Forward Kinematics、Inverse Kinematics 和 Jacobian 等机器人学基础。
 - 后续计划完善运动学建模、控制策略、实验数据和问题复盘。
 
-### LiDAR Logistics Car 激光雷达物流小车
+### LiDAR Logistics Car 智能仓储搬运机器人
 
-- 围绕 LiDAR、编码器、IMU 和电机驱动模块整理移动机器人系统结构。
-- 正在记录传感器数据读取、路径偏差计算和 Path Following 控制思路。
-- 关注 PWM 调速、Encoder 反馈、PID 控制和左右轮速度同步问题。
-- 持续补充接线记录、通信异常、电机抖动、路径偏差等调试内容。
-- 后续计划加入系统结构图、实物图片、代码片段和演示链接。
+- 集成四麦克纳姆轮底盘、三轴机械臂、RPLIDAR A1M8、MPU6050、编码器和 STM32 下位机。
+- 基于 Raspberry Pi 4B、Ubuntu 22.04 和 ROS2 Humble 搭建建图导航系统。
+- 使用 `slam_toolbox`、`robot_localization` EKF、AMCL、DWB 和 RViz2 完成室内建图与目标点导航。
+- 对比 YOLOv11 与点云识别方案，最终选择点云识别以提升目标定位稳定性。
+- 记录地图修正、虚拟墙构建、里程计标定、门口通行和机械臂抓取等调试过程。
 
 ### Mini Engineering Projects 小型工程项目
 
@@ -128,7 +128,7 @@ assets/        Images, diagrams, and public visual materials
 
 - 2026-07: Initialized the learning portfolio structure
 - 2026-07: Added surgical robot project documentation
-- 2026-07: Added LiDAR logistics car project documentation
+- 2026-07: Expanded LiDAR logistics car into a smart warehouse robot project record
 
 更多阶段记录可查看：[时间线](./timeline.md) 和 [周记录](./weekly-logs/)。
 
@@ -149,4 +149,3 @@ assets/        Images, diagrams, and public visual materials
 
 - GitHub: https://github.com/your-username
 - Email: your-email@example.com
-

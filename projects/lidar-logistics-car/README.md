@@ -1,125 +1,156 @@
-# LiDAR Logistics Car 激光雷达物流小车
+# LiDAR Logistics Car 智能仓储搬运机器人
 
 ## Project Overview
 
-本项目用于记录基于 LiDAR、嵌入式控制和电机驱动的自动寻迹 / 导航物流小车学习过程。当前重点是整理系统结构、硬件模块、软件模块、路径跟踪思路和调试记录。
+本项目记录一台面向室内仓储搬运场景的智能物流小车 / 搬运机器人。系统集成四麦克纳姆轮移动底盘、机械臂抓取机构、视觉与点云识别、LiDAR 建图导航、ROS2 上位机和 STM32 下位机控制。
 
-项目仍在实践和文档完善中，后续会逐步补充实物图片、系统结构图、接线表、代码片段、测试数据和演示材料。
+项目目标不是只做一台能动的小车，而是尽量打通移动机器人从“机械结构 - 嵌入式控制 - 传感器感知 - 地图构建 - 路径规划 - 目标抓取”的完整工程链路。
 
-## Background
+## Scenario
 
-自动物流小车是移动机器人和自动化系统中的典型学习项目，涉及底盘结构、传感器感知、路径跟踪、运动控制、嵌入式软件和现场调试。
+仓储搬运机器人需要在室内空间中完成自主移动、目标识别、路径规划、避障和末端抓取。这个项目以实验室 / 教室环境为测试场景，重点验证以下能力：
 
-LiDAR 可以用于距离测量、障碍物检测、环境轮廓感知和路径辅助判断。将 LiDAR 与编码器、电机驱动和控制算法结合，有助于理解移动机器人从感知到执行的完整链路。
+- 在室内环境中使用 LiDAR 构建二维地图。
+- 结合编码器和 IMU 进行里程计与姿态估计。
+- 使用 ROS2 完成地图可视化、定位、全局规划和局部避障。
+- 使用四麦克纳姆轮底盘实现灵活移动。
+- 使用视觉 / 点云方法识别待抓取目标。
+- 使用三轴机械臂执行伸缩、升降和 Yaw 转向抓取。
+
+## System Architecture
+
+```text
+Smart Logistics Robot
+├── Mechanical System
+│   ├── four-mecanum-wheel chassis
+│   ├── aluminum base plate
+│   └── three-axis arm: Y extension, Z lift, Yaw rotation
+├── Embedded Control
+│   ├── STM32F407 chassis controller
+│   └── STM32C8T6 arm controller
+├── Perception
+│   ├── RPLIDAR A1M8
+│   ├── MPU6050 IMU
+│   ├── wheel encoders
+│   └── camera / point cloud sensing
+├── ROS2 System
+│   ├── Ubuntu 22.04 + ROS2 Humble
+│   ├── slam_toolbox
+│   ├── robot_localization EKF
+│   ├── AMCL
+│   ├── DWB controller
+│   └── RViz2 visualization
+└── Task Layer
+    ├── map building
+    ├── map correction
+    ├── navigation
+    ├── object localization
+    └── grasp execution
+```
 
 ## My Role
 
-- 整理小车硬件系统组成，包括主控、LiDAR、电机驱动、编码器和电源模块。
-- 记录传感器接口、通信方式、接线关系和数据读取过程。
-- 学习并实践左右轮电机控制、PWM 调速和编码器速度反馈。
-- 整理 Navigation / Path Following 的基础算法思路和调试参数。
-- 记录通信异常、电机抖动、路径偏差、供电问题等工程调试过程。
-- 持续完善项目文档，后续补充图片、视频、代码和实验数据。
+- 参与智能仓储搬运机器人整体方案整理与系统模块拆分。
+- 整理四麦克纳姆轮底盘结构设计、装配过程、工程图输出和干涉检查。
+- 梳理底盘正 / 逆运动学，用于机器人速度与四轮线速度之间的转换。
+- 整理 STM32 下位机控制逻辑，包括机械臂坐标解算、行程限位和 STEP / DIR / PWM 输出。
+- 对比 YOLO 视觉识别与点云识别效果，记录最终采用点云方案的原因。
+- 整理 ROS2 建图导航流程，包括 LiDAR、编码器、IMU、EKF、slam_toolbox 和 RViz2。
+- 记录地图修正、虚拟墙构建、导航参数调整和实验结果。
+
+## Key Features
+
+| Feature | Implementation | Result |
+| --- | --- | --- |
+| 四麦克纳姆轮底盘 | 独立驱动、支持横移与原地旋转 | 适合狭小室内仓储通道 |
+| 机械臂抓取 | Y 轴伸缩、Z 轴升降、Yaw 转向 | 可完成桌面目标抓取动作 |
+| 底盘运动学 | 四轮正 / 逆运动学解算 | 支持由目标速度计算轮速 |
+| LiDAR 建图 | RPLIDAR A1M8 + slam_toolbox | 完成室内二维地图构建 |
+| 多传感器融合 | 编码器 + IMU + EKF | 输出融合里程计用于导航 |
+| 地图修正 | PGM 栅格编辑 + 虚拟墙 | 提升可通行区域与真实环境的一致性 |
+| 导航实验 | AMCL + 全局规划 + DWB 局部控制 | 完成短程与长距离目标点导航 |
+| 目标识别 | YOLOv11 与点云识别对比 | 最终选择点云方案提高定位可靠性 |
 
 ## Hardware System
 
-计划整理和维护的硬件模块包括：
-
-| Module | Purpose | Notes |
+| Module | Model / Method | Purpose |
 | --- | --- | --- |
-| Main Controller | 控制逻辑、传感器读取和电机控制 | STM32 或其他嵌入式控制器 |
-| LiDAR | 距离测量、障碍物检测和路径辅助判断 | 记录通信协议和数据格式 |
-| Motor Driver | 驱动左右轮电机 | 关注 PWM、方向控制和保护 |
-| Encoder | 速度 / 里程反馈 | 用于闭环控制和运动状态估计 |
-| IMU / Other Sensors | 姿态或辅助避障信息 | 根据实际硬件持续补充 |
-| Power Module | 给主控、传感器和电机供电 | 关注电压、电流和干扰问题 |
-| Chassis | 底盘、轮组、支架和安装结构 | 后续补充尺寸和图片 |
+| Main computer | Raspberry Pi 4B | ROS2 上位机、建图导航和任务调度 |
+| Chassis controller | STM32F407 | 底盘电机、编码器和下位机通信 |
+| Arm controller | STM32C8T6 | 三轴机械臂坐标解算与驱动输出 |
+| LiDAR | RPLIDAR A1M8 | 二维激光建图与导航感知 |
+| IMU | MPU6050 | 姿态数据输入 |
+| Encoder | wheel encoder | 轮速 / 里程计反馈 |
+| Chassis | four mecanum wheels | 横移、旋转和全向移动 |
+| Arm | Y / Z / Yaw mechanism | 目标抓取与搬运 |
 
 详细记录：[hardware-design.md](./hardware-design.md)
 
 ## Software System
 
-软件系统计划按模块整理，便于后续调试和复盘：
+系统软件分为 ROS2 上位机、STM32 下位机、识别模块和调试工具：
 
-```text
-main
-├── lidar_data
-├── encoder_feedback
-├── motor_control
-├── path_following
-├── communication_debug
-└── system_state
-```
-
-- `lidar_data`: 读取和解析 LiDAR 数据。
-- `encoder_feedback`: 读取编码器脉冲并计算轮速。
-- `motor_control`: 控制左右轮速度和方向。
-- `path_following`: 根据路径偏差调整运动状态。
-- `communication_debug`: 通过串口输出调试信息和关键参数。
-- `system_state`: 管理启动、运行、停止和异常状态。
+- `ros2_navigation`: 建图、定位、规划、避障和 RViz2 可视化。
+- `sensor_fusion`: 同步 `/scan`、`/wheel/odom`、`/imu/data_raw`，通过 EKF 输出 `/odometry/filtered`。
+- `chassis_control`: 解析速度指令，完成四麦克纳姆轮运动控制。
+- `arm_control`: 接收目标坐标，完成机械臂半径、角度和高度解算。
+- `vision_recognition`: 对比 YOLOv11 与点云分割 / 聚类方案。
+- `debug_tools`: 远程桌面、串口输出、地图编辑和参数调试。
 
 详细记录：[software-design.md](./software-design.md)
 
-## Navigation / Path Following
+## Navigation and Mapping
 
-当前导航与寻迹部分处于学习和初步实现思路整理阶段，重点包括：
+建图导航部分围绕 ROS2 构建：
 
-- 从 LiDAR 或其他传感器数据中提取路径、边界或障碍物信息。
-- 计算小车与目标路径之间的偏差。
-- 根据偏差调整左右轮速度差。
-- 尝试使用比例控制或 PID 思路改善路径跟踪稳定性。
-- 记录路径丢失、障碍物检测和紧急停车等异常场景。
+1. RPLIDAR A1M8 发布 `/scan`。
+2. STM32F407 与轮式编码器生成 `/wheel/odom`。
+3. MPU6050 发布 `/imu/data_raw`。
+4. 使用 `robot_localization` 的 EKF 融合多源传感器数据。
+5. 使用 `slam_toolbox` 构建二维地图。
+6. 使用 RViz2 查看建图与导航状态。
+7. 对玻璃、门口和空隙区域进行地图修正与虚拟墙标注。
+8. 使用 AMCL、全局规划和 DWB 局部控制完成目标点导航。
 
 详细记录：[navigation-algorithm.md](./navigation-algorithm.md)
 
-## Motor Control
+## Vision and Grasping
 
-电机控制是本项目的核心实践内容之一，当前关注：
+视觉识别部分对比了 YOLOv11 与点云识别：
 
-- PWM 调速和方向控制。
-- 编码器测速和速度单位换算。
-- 左右轮速度同步。
-- PID 速度闭环的参数记录和调试。
-- 启动、制动、转向和低速抖动问题。
+- YOLOv11 能识别箱体目标，但容易受背景信息、数据集规模和训练参数影响。
+- 点云方案通过 RANSAC 平面分割、阈值筛选和欧氏聚类提取目标，受光照和纹理干扰更小。
+- 最终方案倾向于使用点云识别输出目标空间位置，再由机械臂控制系统执行抓取。
 
-后续会补充电机参数、驱动模块型号、控制周期和实验数据。
+详细记录：[vision-recognition.md](./vision-recognition.md) 和 [arm-control.md](./arm-control.md)
 
-## Sensor System
+## Debugging Summary
 
-传感器系统计划记录：
+项目调试中记录的关键问题包括：
 
-- LiDAR 数据格式、通信方式和异常数据处理。
-- 编码器 A / B 相计数、方向判断和测速方法。
-- IMU 或其他传感器的接口和使用场景。
-- 传感器安装位置、标定方法和数据滤波思路。
-
-相关专题笔记会同步整理到：[Sensors Notes](../../notes/sensors/)
-
-## Debugging Record
-
-项目会重点记录工程调试过程，而不只记录最终结果。当前计划覆盖：
-
-- LiDAR 无数据、数据异常或通信不稳定。
-- 电机方向与控制指令不一致。
-- 编码器计数方向错误或测速跳变。
-- 小车直行偏航、转弯不稳定或路径跟踪振荡。
-- 供电不足、电机干扰或系统复位。
-- 参数修改前后的测试现象和结论。
+- 玻璃 / 空隙区域导致 LiDAR 地图误判。
+- 原始地图可通行区域与真实障碍不一致。
+- 局部边界存在虚假开放区域，影响全局路径规划。
+- 里程计尺度标定不准确，导致定位和导航误差。
+- 姿态存在漂移，门口通行场景容易出现路径跳跃。
+- 视觉检测受背景干扰，点云识别在实际定位中更稳定。
 
 详细记录：[debugging-log.md](./debugging-log.md)
 
 ## Current Progress
 
-- 已建立项目文档结构和主要模块入口。
-- 正在整理硬件系统组成、传感器接口和软件模块划分。
-- 正在学习 LiDAR 数据读取、路径偏差计算和电机闭环控制思路。
-- 后续会补充接线表、数据样例、调试日志和实验结果。
+- 已完成四麦克纳姆轮底盘结构设计、装配模型和实物组装。
+- 已完成机械臂三轴控制方案整理，并实现抓取动作验证。
+- 已完成底盘正 / 逆运动学思路整理。
+- 已完成 ROS2 建图系统搭建和二维地图生成。
+- 已完成原始地图问题分析、虚拟墙构建和修正地图输出。
+- 已完成目标点导航实验，验证全局路径规划、局部避障和短程 / 长距离导航。
+- 已完成 YOLO 与点云识别方案对比，明确点云识别更适合当前实验环境。
 
 ## Future Work
 
-- 补充小车实物图片、接线图和系统结构图。
-- 整理 LiDAR 数据解析流程和样例数据。
-- 建立电机控制实验表，记录不同参数下的运行现象。
-- 添加路径跟踪算法调试过程和测试场景说明。
-- 补充代码片段、演示视频链接或 GIF，并避免上传大文件。
-
+- 补充经过压缩处理的实物图片、系统框图、导航截图和演示 GIF。
+- 整理 STM32 端关键代码片段和通信协议。
+- 补充底盘尺寸、轮距、轮半径、控制周期和电机参数。
+- 建立导航参数表，记录 `ticks_per_rev`、Yaw 比例、`inflation_radius`、`robot_radius` 等参数调整过程。
+- 将机械臂抓取、目标识别和导航任务进一步串联成完整搬运流程。
