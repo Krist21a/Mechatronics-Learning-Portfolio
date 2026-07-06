@@ -1,7 +1,7 @@
 # Mechatronics Learning Portfolio
 
-![Repo Size](https://img.shields.io/github/repo-size/your-username/Mechatronics-Learning-Portfolio)
-![Last Commit](https://img.shields.io/github/last-commit/your-username/Mechatronics-Learning-Portfolio)
+![Repo Size](https://img.shields.io/github/repo-size/Krist21a/Mechatronics-Learning-Portfolio)
+![Last Commit](https://img.shields.io/github/last-commit/Krist21a/Mechatronics-Learning-Portfolio)
 ![Markdown](https://img.shields.io/badge/language-Markdown-blue)
 ![Topics](https://img.shields.io/badge/topics-robotics%20%7C%20embedded%20%7C%20mechatronics%20%7C%20control-green)
 
@@ -129,6 +129,7 @@ assets/        Images, diagrams, and public visual materials
 - 2026-07: Initialized the learning portfolio structure
 - 2026-07: Added surgical robot project documentation
 - 2026-07: Expanded LiDAR logistics car into a smart warehouse robot project record
+- 2026-07: Added Cortex-M3 processor notes for Microcomputer Interface course
 
 更多阶段记录可查看：[时间线](./timeline.md) 和 [周记录](./weekly-logs/)。
 
@@ -147,5 +148,5 @@ assets/        Images, diagrams, and public visual materials
 
 ## Contact / Links
 
-- GitHub: https://github.com/your-username
+- GitHub: https://github.com/Krist21a
 - Email: your-email@example.com
