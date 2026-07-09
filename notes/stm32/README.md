@@ -6,6 +6,7 @@
 
 - 工程创建与时钟配置。
 - Cortex-M3 内核基础、异常中断和 NVIC。
+- STM32F1 型号命名、系统架构、启动配置和最小系统。
 - GPIO、EXTI、Timer、PWM。
 - UART、I2C、SPI。
 - DMA 和中断。
@@ -14,6 +15,7 @@
 ## 相关课程笔记
 
 - [Cortex-M3 处理器知识笔记总结](../../courses/microcomputer-interface/cortex-m3-chapter-02.md)
+- [STM32F1 系列微控制器知识笔记总结](../../courses/microcomputer-interface/stm32f1-chapter-03.md)
 
 ## 记录原则
 

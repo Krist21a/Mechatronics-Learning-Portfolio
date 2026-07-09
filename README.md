@@ -130,6 +130,7 @@ assets/        Images, diagrams, and public visual materials
 - 2026-07: Added surgical robot project documentation
 - 2026-07: Expanded LiDAR logistics car into a smart warehouse robot project record
 - 2026-07: Added Cortex-M3 processor notes for Microcomputer Interface course
+- 2026-07: Added STM32F1 microcontroller notes for Microcomputer Interface course
 
 更多阶段记录可查看：[时间线](./timeline.md) 和 [周记录](./weekly-logs/)。
 
